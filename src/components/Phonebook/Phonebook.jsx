@@ -1,51 +1,41 @@
-import React, { useEffect, useState} from 'react';
+import React from 'react';
 import ContactForm from 'components/ContactForm/ContactForm';
 import ContactList from 'components/ContactList/ContactList';
 import Filter from 'components/Filter/Filter';
 import styles from './Phonebook.module.css';
+import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
+import { addContact, deleteContact } from 'redux/contactSlice'; 
+import { setFilter } from 'redux/filterSlice';
 
 
 const Phonebook = () => {
 
-    const [contacts, setContacts] = useState([]);
-    const [filter, setFilter] = useState('');
-
-  useEffect(() =>  {
-    const storedContacts = localStorage.getItem('contacts');
-    if (storedContacts) {
-      setContacts(JSON.parse(storedContacts));
-    }
-  }, []);
+    const contacts = useSelector(state => state.contacts);
+    const filter = useSelector(state => state.filter);
+    const dispatch = useDispatch();
 
 
+    const handleAddContact = newContact => {
+      const isDuplicateName = contacts.some(
+        contact => contact.name.toLowerCase() === newContact.name.toLowerCase()
+      );
 
-  useEffect(() => {
-    if (contacts.length > 0) {
-      localStorage.setItem('contacts', JSON.stringify(contacts));
-    }
-  }, [contacts]);
-
-  const handleAddContact = newContact => {
-    const isDuplicateName = contacts.some(
-      contact => contact.name.toLowerCase() === newContact.name.toLowerCase()
-    );
 
     if (isDuplicateName) {
       alert(`${newContact.name} is already in contacts.`);
       return;
     }
 
-    setContacts(prevContacts => [...prevContacts, newContact]);
+    dispatch(addContact(newContact));
   };
 
   const handleDeleteContact = contactId => {
-    setContacts(prevContacts => 
-      prevContacts.filter(contact => contact.id !== contactId),
-    );
+    dispatch(deleteContact(contactId));
   };
 
   const handleChangeFilter = e => {
-    setFilter(e.target.value);
+    dispatch(setFilter(e.target.value));
   };
 
   const getFilteredContacts = () => {
@@ -74,5 +64,16 @@ return (
     );
 
 };
+
+
+Phonebook.propTypes = {
+  contacts: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.string.isRequired,
+      })
+  ),
+  filter: PropTypes.string,
+};
+
 
 export default Phonebook;
