@@ -1,4 +1,6 @@
-import Phonebook from "./Phonebook/Phonebook";
+import Phonebook from './Phonebook/Phonebook';
+import { Provider } from 'react-redux/es';
+import store from "../redux/store";
 
 export const App = () => {
   return (
@@ -12,7 +14,9 @@ export const App = () => {
         color: '#010101'
       }}
     >
-      <Phonebook/>
+      <Provider store={store}>
+        <Phonebook/>
+      </Provider>
     </div>
   );
 };
