@@ -5,8 +5,8 @@ import Filter from 'components/Filter/Filter';
 import styles from './Phonebook.module.css';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import { addContact, deleteContact } from 'redux/contactSlice'; 
 import { setFilter } from 'redux/filterSlice';
+import { addContact, deleteContact } from 'redux/contactSlice';
 
 
 const Phonebook = () => {
