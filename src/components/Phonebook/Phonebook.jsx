@@ -1,26 +1,22 @@
-import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import ContactForm from 'components/ContactForm/ContactForm';
 import ContactList from 'components/ContactList/ContactList';
 import Filter from 'components/Filter/Filter';
-import styles from './Phonebook.module.css';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
-import { setFilter } from 'redux/filterSlice';
+import styles from './Phonebook.module.css';
 import { addContact, deleteContact } from 'redux/contactSlice';
-
+import { setFilter } from 'redux/filterSlice';
 
 const Phonebook = () => {
+  const contacts = useSelector(state => state.contacts);
+  const filter = useSelector(state => state.filter);
+  const dispatch = useDispatch();
 
-    const contacts = useSelector(state => state.contacts);
-    const filter = useSelector(state => state.filter);
-    const dispatch = useDispatch();
-
-
-    const handleAddContact = newContact => {
-      const isDuplicateName = contacts.some(
-        contact => contact.name.toLowerCase() === newContact.name.toLowerCase()
-      );
-
+  const handleAddContact = newContact => {
+    const isDuplicateName = contacts.some(
+      contact => contact.name.toLowerCase() === newContact.name.toLowerCase()
+    );
 
     if (isDuplicateName) {
       alert(`${newContact.name} is already in contacts.`);
@@ -47,33 +43,31 @@ const Phonebook = () => {
   };
 
   const filteredContacts = getFilteredContacts();
+  return (
+    <div>
+      <h1 className={styles.title}>Phonebook</h1>
 
-return (
-   <div>
-        <h1 className={styles.title}>Phonebook</h1>
+      <ContactForm onSubmit={handleAddContact} />
 
-        <ContactForm onSubmit={handleAddContact} />
+      <h2 className={styles.subtitle}>Contacts</h2>
 
-        <h2 className={styles.subtitle}>Contacts</h2>
+      <Filter value={filter} onChangeFilter={handleChangeFilter} />
 
-        <Filter value={filter} onChangeFilter={handleChangeFilter} />
-
-        <ContactList contacts={filteredContacts} onDeleteContact={handleDeleteContact} />
-      
-      </div>
-    );
-
+      <ContactList
+        contacts={filteredContacts}
+        onDeleteContact={handleDeleteContact}
+      />
+    </div>
+  );
 };
-
 
 Phonebook.propTypes = {
   contacts: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.string.isRequired,
-      })
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+    })
   ),
   filter: PropTypes.string,
 };
-
 
 export default Phonebook;
