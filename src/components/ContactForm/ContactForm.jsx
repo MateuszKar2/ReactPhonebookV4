@@ -4,7 +4,7 @@ import { v4 as uuid } from 'uuid';
 import styles from './ContactForm.module.css';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { addContact } from 'redux/contactSlice';
+import { addContact } from './../../redux/contactSlice';
 
 const ContactForm = () => {
   const [name, setName] = useState('');
