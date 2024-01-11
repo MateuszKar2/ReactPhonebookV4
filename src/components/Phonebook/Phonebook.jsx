@@ -5,8 +5,8 @@ import Filter from 'components/Filter/Filter';
 import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './Phonebook.module.css';
-import { addContact, deleteContact } from 'redux/contactSlice';
-import { setFilter } from 'redux/filterSlice';
+import { addContact, deleteContact } from './../../redux/contactSlice';
+import { setFilter } from './../../redux/filterSlice';
 
 const Phonebook = () => {
   const contacts = useSelector(state => state.contacts);
