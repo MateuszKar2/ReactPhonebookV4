@@ -38,7 +38,6 @@
 
 ### Tabela porównawcza **ReactPhonebookV3** vs **ReactPhonebookV4**:
 
-```markdown
 # Comparison: ReactPhonebookV3 vs ReactPhonebookV4
 
 Below is a comparison between **ReactPhonebookV3** and **ReactPhonebookV4**, highlighting the key differences and new features introduced in version 4.
