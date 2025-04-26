@@ -61,6 +61,7 @@ Below is a comparison between **ReactPhonebookV3** and **ReactPhonebookV4**, hig
 | **Components**                  | Basic components for adding, editing, and displaying contacts. | More modular components, including categorization and improved state management. |
 | **User Instructions (README)**  | Basic instructions with minimal details.                      | More detailed README, with step-by-step usage and new features explained. |
 
+
 ### Key Differences and New Features in Version 4:
 - **Category Management**: Version 4 introduces the ability to categorize contacts (e.g., Family, Friends, Work), which can be used to filter and organize your contacts.
 - **Error Handling**: Version 4 includes better error handling and user feedback when adding or editing contacts.
